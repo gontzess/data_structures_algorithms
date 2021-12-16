@@ -32,7 +32,7 @@ func (q *Queue) read() string {
 }
 
 func (q *Queue) isEmpty() bool {
-  return len(q.data) - 1 < 0
+  return len(q.data) == 0
 }
 
 func main() {

@@ -1,6 +1,10 @@
+// Write a function that uses a stack to reverse a string. (For example, "abcde" would become "edcba".) You can work with our earlier implementation of the Stack class.
+
 package main
 
-import "fmt"
+import (
+  "fmt"
+)
 
 type Stack struct {
   data []string
@@ -37,18 +41,22 @@ func (s *Stack) isEmpty() bool {
   return len(s.data) == 0
 }
 
-func main() {
+func reverse(fwdString string) string {
   stack := &Stack{}
-  fmt.Println(stack)
-  stack.push("hi")
-  stack.push("there")
-  fmt.Println(stack)
-  fmt.Println(stack.read())
-  fmt.Println(stack.pop())
-  fmt.Println(stack)
-  fmt.Println(stack.pop())
-  fmt.Println(stack)
-  fmt.Println(stack.isEmpty())
-  fmt.Println(stack.pop())
-  fmt.Println(stack)
+  for _, byteVal := range []byte(fwdString) {
+    stack.push(string(byteVal))
+  }
+
+  revrsString := ""
+  for stack.isEmpty() == false {
+    revrsString += stack.pop()
+  }
+
+  return revrsString
+}
+
+func main() {
+  testStr := "abcde"
+  fmt.Println(reverse(testStr))
+  fmt.Println(testStr)
 }
