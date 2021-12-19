@@ -3,17 +3,17 @@
 package main
 
 import (
-  "fmt"
+	"fmt"
 )
 
 func triangleNumbers(n int) int {
-  if n == 1 {
-    return 1
-  }
+	if n == 1 {
+		return 1
+	}
 
-  return n + triangleNumbers(n - 1)
+	return n + triangleNumbers(n-1)
 }
 
 func main() {
-  fmt.Println(triangleNumbers(7))
+	fmt.Println(triangleNumbers(7))
 }

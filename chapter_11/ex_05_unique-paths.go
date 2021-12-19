@@ -5,13 +5,13 @@ package main
 import "fmt"
 
 func countUniquePaths(cols int, rows int) int {
-  if cols == 1 || rows == 1 {
-    return 1
-  }
+	if cols == 1 || rows == 1 {
+		return 1
+	}
 
-  return countUniquePaths(cols - 1, rows) + countUniquePaths(cols, rows - 1)
+	return countUniquePaths(cols-1, rows) + countUniquePaths(cols, rows-1)
 }
 
 func main() {
-  fmt.Println(countUniquePaths(7, 3))
+	fmt.Println(countUniquePaths(7, 3))
 }

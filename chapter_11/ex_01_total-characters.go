@@ -3,18 +3,18 @@
 package main
 
 import (
-  "fmt"
+	"fmt"
 )
 
 func totalCharacters(input []string) int {
-  if len(input) == 1 {
-    return len(input[0])
-  }
+	if len(input) == 1 {
+		return len(input[0])
+	}
 
-  return len(input[0]) + totalCharacters(input[1:])
+	return len(input[0]) + totalCharacters(input[1:])
 }
 
-func main(){
-  testSli := []string{"ab", "c", "def", "ghij"}
-  fmt.Println(totalCharacters(testSli))
+func main() {
+	testSli := []string{"ab", "c", "def", "ghij"}
+	fmt.Println(totalCharacters(testSli))
 }

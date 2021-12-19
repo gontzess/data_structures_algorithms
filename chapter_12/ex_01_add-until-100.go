@@ -5,21 +5,21 @@ package main
 import "fmt"
 
 func addUntil100(sli []int) int {
-  if len(sli) == 0 {
-    return 0
-  }
+	if len(sli) == 0 {
+		return 0
+	}
 
-  remaining := addUntil100(sli[1:])
+	remaining := addUntil100(sli[1:])
 
-  if sli[0] + remaining > 100 {
-    return remaining
-  } else {
-    return sli[0] + remaining
-  }
+	if sli[0]+remaining > 100 {
+		return remaining
+	} else {
+		return sli[0] + remaining
+	}
 }
 
 func main() {
-  sli := []int{4, 6, 20, 50, 26, 25, 15}
+	sli := []int{4, 6, 20, 50, 26, 25, 15}
 
-  fmt.Println(addUntil100(sli))
+	fmt.Println(addUntil100(sli))
 }
