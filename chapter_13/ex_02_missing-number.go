@@ -5,17 +5,17 @@ package main
 
 import "fmt"
 
-func findMissingNumber(sli []int) int {
-	if len(sli) < 1 {
+func findMissingNumber(sortableSli SortableSlice) int {
+	if len(sortableSli) < 1 {
 		return 0
 	}
 
-	sortableSli := SortableSlice{slice: sli}
-	sortableSli.quickSort(0, len(sli)-1)
+	// sortableSli := SortableSlice{sli}
+	sortableSli.quickSort(0, len(sortableSli)-1)
 
 	var missing int
-	for idx := 0; idx < len(sli); idx++ {
-		if sortableSli.slice[idx] != idx {
+	for idx := 0; idx < len(sortableSli); idx++ {
+		if sortableSli[idx] != idx {
 			missing = idx
 			break
 		}
@@ -25,14 +25,8 @@ func findMissingNumber(sli []int) int {
 }
 
 func main() {
-	// sli1 := []int{5, 2, 4, 1, 0}
-	// fmt.Println(findMissingNumber(sli1)) // 3
-
-	sli2 := []int{9, 3, 2, 5, 6, 7, 1, 0, 4}
-	fmt.Println(findMissingNumber(sli2)) // 8
-
-	sli3 := []int{2, 7, 0, 5, 9, 6, 1, 4, 8}
-	fmt.Println(findMissingNumber(sli3)) // 3
-
-	fmt.Println(findMissingNumber([]int{5, 2, 4, 0, 1})) // 3
+	// fmt.Println(findMissingNumber(SortableSlice{5, 2, 4, 1, 0})) // 3
+	fmt.Println(findMissingNumber(SortableSlice{9, 3, 2, 5, 6, 7, 1, 0, 4})) // 8
+	fmt.Println(findMissingNumber(SortableSlice{2, 7, 0, 5, 9, 6, 1, 4, 8})) // 3
+	fmt.Println(findMissingNumber(SortableSlice{5, 2, 4, 0, 1}))             // 3
 }

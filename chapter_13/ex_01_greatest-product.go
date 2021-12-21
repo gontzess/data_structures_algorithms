@@ -6,19 +6,18 @@ import (
 	"fmt"
 )
 
-func greatestProduct(sli []int) int {
-	if len(sli) < 3 {
+func greatestProduct(sortableSli SortableSlice) int {
+	if len(sortableSli) < 3 {
 		return 0
 	}
 
-	sortableSli := SortableSlice{slice: sli}
-	lastIdx := len(sortableSli.slice) - 1
+	lastIdx := len(sortableSli) - 1
 	sortableSli.quickSort(0, lastIdx)
 
-	return sortableSli.slice[lastIdx] * sortableSli.slice[lastIdx-1] * sortableSli.slice[lastIdx-2]
+	return sortableSli[lastIdx] * sortableSli[lastIdx-1] * sortableSli[lastIdx-2]
 }
 
 func main() {
-	sli := []int{5, 9, 3, 2, 4, 5, 6}
-	fmt.Println(greatestProduct(sli))
+	sortableSli := SortableSlice{5, 9, 3, 2, 4, 5, 6}
+	fmt.Println(greatestProduct(sortableSli)) // 270
 }

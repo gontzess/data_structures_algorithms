@@ -4,38 +4,36 @@ import (
 	"fmt"
 )
 
-type SortableSlice struct {
-	slice []int
-}
+type SortableSlice []int
 
-func (ss *SortableSlice) partition(leftPtr int, rightPtr int) int {
+func (ss SortableSlice) partition(leftPtr int, rightPtr int) int {
 	pivotIdx := rightPtr
-	pivot := ss.slice[pivotIdx]
+	pivot := ss[pivotIdx]
 	rightPtr -= 1
 
 	for {
-		for ss.slice[leftPtr] < pivot {
+		for ss[leftPtr] < pivot {
 			leftPtr += 1
 		}
 
-		for ss.slice[rightPtr] > pivot {
+		for ss[rightPtr] > pivot {
 			rightPtr -= 1
 		}
 
 		if leftPtr >= rightPtr {
 			break
 		} else {
-			ss.slice[leftPtr], ss.slice[rightPtr] = ss.slice[rightPtr], ss.slice[leftPtr]
+			ss[leftPtr], ss[rightPtr] = ss[rightPtr], ss[leftPtr]
 			leftPtr += 1
 		}
 	}
 
-	ss.slice[leftPtr], ss.slice[pivotIdx] = ss.slice[pivotIdx], ss.slice[leftPtr]
+	ss[leftPtr], ss[pivotIdx] = ss[pivotIdx], ss[leftPtr]
 
 	return leftPtr
 }
 
-func (ss *SortableSlice) quickSort(leftIdx int, rightIdx int) {
+func (ss SortableSlice) quickSort(leftIdx int, rightIdx int) {
 	// fmt.Println("RECURSE")
 	if rightIdx-leftIdx <= 0 {
 		return
@@ -48,8 +46,8 @@ func (ss *SortableSlice) quickSort(leftIdx int, rightIdx int) {
 }
 
 func main() {
-	sortableSli := SortableSlice{slice: []int{0, 5, 2, 1, 6, 3}}
+	sortableSli := SortableSlice{0, 5, 2, 1, 6, 3}
 	fmt.Println(sortableSli)
-	sortableSli.quickSort(0, len(sortableSli.slice)-1)
+	sortableSli.quickSort(0, len(sortableSli)-1)
 	fmt.Println(sortableSli)
 }

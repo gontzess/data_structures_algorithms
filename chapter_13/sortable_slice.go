@@ -1,39 +1,35 @@
 package main
 
-// import "fmt"
+type SortableSlice []int
 
-type SortableSlice struct {
-	slice []int
-}
-
-func (ss *SortableSlice) partition(leftPtr int, rightPtr int) int {
+func (ss SortableSlice) partition(leftPtr int, rightPtr int) int {
 	pivotIdx := rightPtr
-	pivot := ss.slice[pivotIdx]
+	pivot := ss[pivotIdx]
 	rightPtr -= 1
 
 	for {
-		for ss.slice[leftPtr] < pivot {
+		for ss[leftPtr] < pivot {
 			leftPtr += 1
 		}
 
-		for ss.slice[rightPtr] > pivot {
+		for ss[rightPtr] > pivot {
 			rightPtr -= 1
 		}
 
 		if leftPtr >= rightPtr {
 			break
 		} else {
-			ss.slice[leftPtr], ss.slice[rightPtr] = ss.slice[rightPtr], ss.slice[leftPtr]
+			ss[leftPtr], ss[rightPtr] = ss[rightPtr], ss[leftPtr]
 			leftPtr += 1
 		}
 	}
 
-	ss.slice[leftPtr], ss.slice[pivotIdx] = ss.slice[pivotIdx], ss.slice[leftPtr]
+	ss[leftPtr], ss[pivotIdx] = ss[pivotIdx], ss[leftPtr]
 
 	return leftPtr
 }
 
-func (ss *SortableSlice) quickSort(leftIdx int, rightIdx int) {
+func (ss SortableSlice) quickSort(leftIdx int, rightIdx int) {
 	// fmt.Println("RECURSE")
 	if rightIdx-leftIdx <= 0 {
 		return
@@ -46,10 +42,10 @@ func (ss *SortableSlice) quickSort(leftIdx int, rightIdx int) {
 }
 
 // NOTE side affect:  mutates the caller leaving a partially sorted slice
-func (ss *SortableSlice) quickSelectMut(kthLowestVal int, leftIdx int, rightIdx int) int {
+func (ss SortableSlice) quickSelectMut(kthLowestVal int, leftIdx int, rightIdx int) int {
 	// fmt.Println("RECURSE")
 	if rightIdx-leftIdx <= 0 {
-		return ss.slice[leftIdx]
+		return ss[leftIdx]
 	}
 
 	pivotIdx := ss.partition(leftIdx, rightIdx)
@@ -59,14 +55,14 @@ func (ss *SortableSlice) quickSelectMut(kthLowestVal int, leftIdx int, rightIdx 
 	} else if kthLowestVal > pivotIdx {
 		return ss.quickSelectMut(kthLowestVal, pivotIdx+1, rightIdx)
 	} else {
-		return ss.slice[pivotIdx]
+		return ss[pivotIdx]
 	}
 }
 
 func (ss SortableSlice) clone() SortableSlice {
-	sliceCopy := make([]int, len(ss.slice))
-	copy(sliceCopy, ss.slice)
-	return SortableSlice{slice: sliceCopy}
+	sliceCopy := make(SortableSlice, len(ss))
+	copy(sliceCopy, ss)
+	return sliceCopy
 }
 
 // adjusted so that quickSelect doesn't mutate the original caller
@@ -74,7 +70,7 @@ func (ss SortableSlice) quickSelect(kthLowestVal int, leftIdx int, rightIdx int)
 	// fmt.Println("RECURSE")
 	copy := ss.clone()
 	if rightIdx-leftIdx <= 0 {
-		return copy.slice[leftIdx]
+		return copy[leftIdx]
 	}
 
 	pivotIdx := copy.partition(leftIdx, rightIdx)
@@ -85,6 +81,6 @@ func (ss SortableSlice) quickSelect(kthLowestVal int, leftIdx int, rightIdx int)
 		return copy.quickSelect(kthLowestVal, pivotIdx+1, rightIdx)
 	} else {
 		// fmt.Println(copy)
-		return copy.slice[pivotIdx]
+		return copy[pivotIdx]
 	}
 }
