@@ -35,7 +35,23 @@ func (dll *DoublyLinkedList) removeFromFront() *Node {
 
 	removedNode := dll.firstNode
 	dll.firstNode = dll.firstNode.nextNode
+	dll.firstNode.previousNode = nil
 	return removedNode
+}
+
+func (dll DoublyLinkedList) printReverse() {
+	currentNode := dll.lastNode
+	resultStr := ""
+	for currentNode != nil {
+		resultStr += currentNode.data + ", "
+		currentNode = currentNode.previousNode
+	}
+
+	if len(resultStr) > 0 {
+		resultStr = resultStr[:len(resultStr)-2]
+	}
+
+	fmt.Println("R[" + resultStr + "]")
 }
 
 type Queue struct {
@@ -77,9 +93,16 @@ func main() {
 	fmt.Println(queue.dequeue()) // ""
 	fmt.Println(queue.read())    // ""
 	queue.enqueue("once")
+	// queue.insertAtEnd("once")
+	// queue.DoublyLinkedList.insertAtEnd("once")
+	fmt.Println(queue.read()) // "once"
 	queue.enqueue("upon")
 	queue.enqueue("a")
 	queue.enqueue("time")
+	fmt.Println(queue.firstNode, queue.lastNode)
 	fmt.Println(queue.dequeue()) // "once"
 	fmt.Println(queue.read())    // "upon"
+	fmt.Println(queue.firstNode, queue.lastNode)
+
+	queue.printReverse() // R[time, a, upon]
 }
